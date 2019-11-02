@@ -1,0 +1,18 @@
+# Java
+
+# Build
+build
+out
+
+# Gradle
+.gradle
+
+#Docs
+docs
+
+# IntelliJ
+.idea
+
+# MacOSX
+.DS_Store
+motion-profile-generator.iml
