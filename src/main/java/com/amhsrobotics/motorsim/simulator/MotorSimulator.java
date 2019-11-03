@@ -29,6 +29,9 @@ public class MotorSimulator {
 	
 	private double velocity = 0;
 	private double position = 0;
+	private double lastError = 0;
+	private double lastMeasured = 0;
+	
 	
 	public MotorSimulator(Motor motor, double numMotors, double mass, double gearRatio, double simulationTime, double maxVoltage, double wheelRadius) {
 		this(motor, numMotors, mass, gearRatio, wheelRadius, simulationTime, maxVoltage, "Motor Sim");
@@ -52,7 +55,7 @@ public class MotorSimulator {
 		
 		Graph graph = new Graph(name);
 		
-		double iterationTime = 0.01;
+		double iterationTime = 0.06;
 		
 		double setpoint = 10 * Conversions.IN_TO_M;
 		
@@ -61,28 +64,39 @@ public class MotorSimulator {
 		double t = 0.0;
 		
 		while(t < simulationTime) {
-			double voltage = controlLoop(setpoint,position,iterationTime);
+			if(Math.abs(t%5) <= iterationTime){
+				setpoint = -setpoint;
+			}
+			double voltage = controlLoop(setpoint,velocity,iterationTime);
 			double acceleration = getAcceleration(voltage);
 			position += velocity * iterationTime;
 			velocity += acceleration * iterationTime;
 			graph.addPosition(position,t);
 			graph.addVelocity(velocity, t);
 			graph.addVoltage(voltage,t);
+			graph.addError(lastError, t);
 			t += iterationTime;
 		}
 	}
+
 	
-	double lastError = 0;
-	
-	private double controlLoop(double setpoint, double position, double iterationTime){
+	private double controlLoop(double target, double measured, double iterationTime){
 		double voltage = 0;
 		
-		double Kp = 2;
+		double Kv = 1.65; //1/top robot speed in m/s
+		double Ka = 0.2;
+		double Kp = 0.1;
 		
-		double error = setpoint - position;
+		double FF = Kv * target + Ka * ((measured - lastMeasured)/iterationTime);
+		
+		double error = target - measured;
+
+		double FB = Kp * error;
+		
+		lastMeasured = measured;
 		lastError = error;
 		
-		voltage = Kp * error;
+		voltage = FF + FB;
 		
 		voltage = Math.max(-maxVoltage, Math.min(maxVoltage,voltage));
 		
