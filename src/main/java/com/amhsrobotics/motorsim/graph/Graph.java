@@ -19,16 +19,17 @@ public class Graph {
 	
 	XYSeries positionSeries;
 	XYSeries velocitySeries;
-	
+	XYSeries voltageSeries;
 	
 	public Graph(String name) {
 		
 		positionSeries = new XYSeries("Position", false);
 		velocitySeries = new XYSeries("Velocity", false);
+		voltageSeries = new XYSeries("Voltage", false);
 		
 		final XYSeriesCollection data = new XYSeriesCollection(positionSeries);
 		data.addSeries(velocitySeries);
-		
+		data.addSeries(voltageSeries);
 		
 		final JFreeChart chart = ChartFactory.createXYLineChart(
 				name,
@@ -82,7 +83,10 @@ public class Graph {
 		velocitySeries.add(time, velocity * Conversions.M_TO_IN);
 	}
 	
-	
+	public void addVoltage(double voltage, double time) {
+		//convert to inches
+		voltageSeries.add(time, voltage);
+	}
 	private class CustomColorRenderer extends XYLineAndShapeRenderer {
 		
 		private Shape shape;

@@ -1,6 +1,7 @@
 package com.amhsrobotics.motorsim.simulator;
 
 import com.amhsrobotics.motorsim.graph.Graph;
+import com.amhsrobotics.motorsim.math.Conversions;
 import com.amhsrobotics.motorsim.motors.Motor;
 
 /**
@@ -24,19 +25,22 @@ public class MotorSimulator {
 	private double Kt; //torque constant
 	private double resistance;
 	
-	double velocity = 0;
-	double position = 0;
+	private double maxVoltage;
 	
-	public MotorSimulator(Motor motor, double numMotors, double mass, double gearRatio, double simulationTime, double voltage, double wheelRadius) {
-		this(motor, numMotors, mass, gearRatio, wheelRadius, simulationTime, voltage, "Motor Sim");
+	private double velocity = 0;
+	private double position = 0;
+	
+	public MotorSimulator(Motor motor, double numMotors, double mass, double gearRatio, double simulationTime, double maxVoltage, double wheelRadius) {
+		this(motor, numMotors, mass, gearRatio, wheelRadius, simulationTime, maxVoltage, "Motor Sim");
 	}
 	
-	public MotorSimulator(Motor motor, double numMotors, double mass, double gearRatio, double wheelRadius, double simulationTime, double voltage, String name) {
+	public MotorSimulator(Motor motor, double numMotors, double mass, double gearRatio, double wheelRadius, double simulationTime, double maxVoltage, String name) {
 		this.motor = motor;
 		this.numMotors = numMotors;
 		this.mass = mass;
 		this.gearRatio = gearRatio;
 		this.wheelRadius = wheelRadius;
+		this.maxVoltage = maxVoltage;
 		
 		double stallTorque = motor.getStallTorque();
 		double stallCurrent = motor.getStallCurrent();
@@ -50,16 +54,42 @@ public class MotorSimulator {
 		
 		double iterationTime = 0.01;
 		
-		for (double i = 0; i < simulationTime; i += iterationTime) {
+		double setpoint = 10 * Conversions.IN_TO_M;
+		
+		double threshold = 0.1;
+		
+		double t = 0.0;
+		
+		while(t < simulationTime) {
+			double voltage = controlLoop(setpoint,position,iterationTime);
 			double acceleration = getAcceleration(voltage);
 			position += velocity * iterationTime;
 			velocity += acceleration * iterationTime;
-			graph.addPosition(position, i);
-			graph.addVelocity(velocity, i);
+			graph.addPosition(position,t);
+			graph.addVelocity(velocity, t);
+			graph.addVoltage(voltage,t);
+			t += iterationTime;
 		}
 	}
 	
-	double getAcceleration(double voltage) {
+	double lastError = 0;
+	
+	private double controlLoop(double setpoint, double position, double iterationTime){
+		double voltage = 0;
+		
+		double Kp = 2;
+		
+		double error = setpoint - position;
+		lastError = error;
+		
+		voltage = Kp * error;
+		
+		voltage = Math.max(-maxVoltage, Math.min(maxVoltage,voltage));
+		
+		return voltage;
+	}
+	
+	private double getAcceleration(double voltage) {
 		return -Kt * gearRatio * gearRatio / (Kv * resistance * wheelRadius * wheelRadius * mass) * velocity + gearRatio * Kt / (resistance * wheelRadius * mass) * voltage;
 	}
 }
