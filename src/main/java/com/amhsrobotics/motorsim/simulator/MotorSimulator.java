@@ -83,9 +83,9 @@ public class MotorSimulator {
 	private double controlLoop(double target, double measured, double iterationTime){
 		double voltage = 0;
 		
-		double Kv = 1.65; //1/top robot speed in m/s
-		double Ka = 0.2;
-		double Kp = 0.1;
+		double Kv = 1.65;
+		double Ka = 0;
+		double Kp = 0.01;
 		
 		double FF = Kv * target + Ka * ((measured - lastMeasured)/iterationTime);
 		
