@@ -1,13 +1,18 @@
 package com.amhsrobotics.motorsim.motors;
 
+/**
+ * Motor class.
+ * <p>
+ * Data for specific motors can be found from: https://motors.vex.com/
+ */
 public class Motor {
 	
-	private final double stallTorque;
-	private final double stallCurrent;
-	private final double freeSpeed;
-	private final double freeCurrent;
+	private final double stallTorque; //Newton meters
+	private final double stallCurrent; //Amps
+	private final double freeSpeed; //RPM
+	private final double freeCurrent; //Amps
 	
-	public Motor(double stallTorque, double stallCurrent, double freeSpeed, double freeCurrent){
+	public Motor(double stallTorque, double stallCurrent, double freeSpeed, double freeCurrent) {
 		this.stallTorque = stallTorque;
 		this.stallCurrent = stallCurrent;
 		this.freeSpeed = freeSpeed;

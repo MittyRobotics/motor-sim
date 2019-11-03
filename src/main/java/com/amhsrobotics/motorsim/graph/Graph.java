@@ -1,5 +1,6 @@
 package com.amhsrobotics.motorsim.graph;
 
+import com.amhsrobotics.motorsim.math.Conversions;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -20,7 +21,7 @@ public class Graph {
 	XYSeries velocitySeries;
 	
 	
-	public Graph() {
+	public Graph(String name) {
 		
 		positionSeries = new XYSeries("Position", false);
 		velocitySeries = new XYSeries("Velocity", false);
@@ -30,7 +31,7 @@ public class Graph {
 		
 		
 		final JFreeChart chart = ChartFactory.createXYLineChart(
-				"Motor Sim",
+				name,
 				"Time (seconds)",
 				"Position (in), Velocity (in/s)",
 				data,
@@ -74,11 +75,11 @@ public class Graph {
 	
 	public void addPosition(double position, double time) {
 		//convert to inches
-		positionSeries.add(time, position * 39.2701);
+		positionSeries.add(time, position  * Conversions.M_TO_IN);
 	}
 	public void addVelocity(double velocity, double time) {
 		//convert to inches
-		velocitySeries.add(time, velocity * 39.2701);
+		velocitySeries.add(time, velocity * Conversions.M_TO_IN);
 	}
 	
 	
