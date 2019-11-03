@@ -20,6 +20,7 @@ public class Graph {
 	XYSeries positionSeries;
 	XYSeries velocitySeries;
 	XYSeries voltageSeries;
+	XYSeries setpointSeries;
 	XYSeries errorSeries;
 	
 	public Graph(String name) {
@@ -27,11 +28,14 @@ public class Graph {
 		positionSeries = new XYSeries("Position", false);
 		velocitySeries = new XYSeries("Velocity", false);
 		voltageSeries = new XYSeries("Voltage", false);
+		setpointSeries = new XYSeries("Setpoint", false);
 		errorSeries = new XYSeries("Error", false);
+
 		
 		final XYSeriesCollection data = new XYSeriesCollection(positionSeries);
 		data.addSeries(velocitySeries);
 		data.addSeries(voltageSeries);
+		data.addSeries(setpointSeries);
 		data.addSeries(errorSeries);
 		
 		final JFreeChart chart = ChartFactory.createXYLineChart(
@@ -90,7 +94,10 @@ public class Graph {
 		//convert to inches
 		voltageSeries.add(time, voltage);
 	}
-	
+	public void addSetpoint(double setpoint, double time) {
+		//convert to inches
+		setpointSeries.add(time, setpoint  * Conversions.M_TO_IN);
+	}
 	public void addError(double error, double time) {
 		//convert to inches
 		errorSeries.add(time, error);
