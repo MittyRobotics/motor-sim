@@ -1,4 +1,4 @@
-package com.amhsrobotics.motorsim;
+package com.amhsrobotics.motorsim.graph;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;

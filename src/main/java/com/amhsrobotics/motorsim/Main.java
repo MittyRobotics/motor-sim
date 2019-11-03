@@ -1,5 +1,8 @@
 package com.amhsrobotics.motorsim;
 
+import com.amhsrobotics.motorsim.motors.NEOMotor;
+import com.amhsrobotics.motorsim.simulator.MotorSimulator;
+
 public class Main {
 
 	double velocity;

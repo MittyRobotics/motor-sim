@@ -1,4 +1,4 @@
-package com.amhsrobotics.motorsim;
+package com.amhsrobotics.motorsim.motors;
 
 public class Motor {
 	

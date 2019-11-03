@@ -1,4 +1,7 @@
-package com.amhsrobotics.motorsim;
+package com.amhsrobotics.motorsim.simulator;
+
+import com.amhsrobotics.motorsim.graph.Graph;
+import com.amhsrobotics.motorsim.motors.Motor;
 
 /**
  * Simulates a mechanism given data on the motors that drive it.
