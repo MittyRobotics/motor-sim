@@ -14,7 +14,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import javax.swing.*;
 import java.awt.*;
 
-public class Graph {
+public class Graph extends JFrame{
 	
 	
 	XYSeries positionSeries;
@@ -71,14 +71,13 @@ public class Graph {
 		
 		final ChartPanel panel = new ChartPanel(chart);
 		panel.setPreferredSize(new java.awt.Dimension(800, 600));
-		JFrame f = new JFrame();
 		panel.setBackground(new Color(71, 71, 71));
-		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		f.add(panel);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		add(panel);
 		
-		f.pack();
-		f.setLocationRelativeTo(null);
-		f.setVisible(true);
+		pack();
+		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 	
 	public void addPosition(double position, double time) {
