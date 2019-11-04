@@ -89,6 +89,7 @@ public class MotorSimulator {
 			voltage = 0;
 		}
 		
+		
 		double acceleration = getAcceleration(voltage);
 		position += velocity * iterationTime;
 		velocity += acceleration * iterationTime;

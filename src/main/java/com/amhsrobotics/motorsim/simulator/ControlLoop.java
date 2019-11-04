@@ -45,7 +45,7 @@ public class ControlLoop {
 		switch(type){
 			case PIDF:
 				return PIDFControl(target,measured);
-			case Velocity:
+			case VELOCITY:
 				return velocityControl(target,measured);
 		}
 		return 0;
@@ -80,7 +80,7 @@ public class ControlLoop {
 		integral = integral + error * iterationTime;
 		double derivative = (error-lastError) / iterationTime;
 		
-		voltage = Kp * error + Ki * integral + Kd * derivative;
+		voltage = Kp * error + Ki * integral + Kd * derivative + Kf * target;
 		
 		voltage = Math.max(-maxVoltage, Math.min(maxVoltage,voltage));
 		
