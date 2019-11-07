@@ -20,22 +20,24 @@ public class Main {
 		double gearRatio = 42.0 / 11.0 * 50.0 / 24.0;
 		double wheelRadius = 2 * Conversions.IN_TO_M; //Meters
 		double maxVoltage = 12;
-		ControlLoop controlLoop = new ControlLoop(ControlLoopType.PIDF, maxVoltage, 0.06);
-		controlLoop.setupPIDFController(1, 0, 0, 3.3);
+
+		double iterationTime = 0.02;
+
+		ControlLoop controlLoop = new ControlLoop(ControlLoopType.VELOCITY, maxVoltage, iterationTime);
+		controlLoop.setupVelocityController(1, 0, 0);
 		ControlType controlType = ControlType.VELOCITY;
 		
 		MotorSimulator motorSimulator = new MotorSimulator(new CIMMotor(), 4, mass, gearRatio, wheelRadius, controlLoop, controlType, "CIM motor");
 		Graph graph = new Graph("CIM Motor");
 		
-		double setpoint = 48 * Conversions.IN_TO_M;
+		double setpoint = 48  * Conversions.IN_TO_M;
 		
 		double t = 0.0;
-		double iterationTime = 0.02;
 		
 		while (t < 20) {
-			if (t % 5.0 <= iterationTime) {
-				setpoint = -setpoint;
-			}
+//			if (t % 5.0 <= iterationTime) {
+//				setpoint = -setpoint;
+//			}
 			motorSimulator.update(setpoint, iterationTime);
 			graph.addPosition(motorSimulator.getPosition(), t);
 			graph.addVelocity(motorSimulator.getVelocity(), t);
