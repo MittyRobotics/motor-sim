@@ -30,7 +30,7 @@ public class Main {
 		MotorSimulator motorSimulator = new MotorSimulator(new CIMMotor(), 4, mass, gearRatio, wheelRadius, controlLoop, controlType, "CIM motor");
 		Graph graph = new Graph("CIM Motor");
 		
-		double setpoint = 48  * Conversions.IN_TO_M;
+		double setpoint = 10  * Conversions.IN_TO_M;
 		
 		double t = 0.0;
 		

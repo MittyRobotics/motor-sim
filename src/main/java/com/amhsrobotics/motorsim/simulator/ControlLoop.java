@@ -42,6 +42,8 @@ public class ControlLoop {
 	}
 	
 	public double update(double target, double measured){
+		target = target * Conversions.M_TO_IN;
+		measured = measured * Conversions.M_TO_IN;
 		switch(type){
 			case PIDF:
 				return PIDFControl(target,measured);
