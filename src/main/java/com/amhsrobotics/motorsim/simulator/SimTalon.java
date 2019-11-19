@@ -6,7 +6,18 @@ public class SimTalon implements Runnable {
     private ModelSystem model;
     private double voltage=0;
     private SimTalon master;
-    boolean follower = false;
+    private boolean follower = false;
+
+    private double Kp;
+    private double Kd;
+    private double Ki;
+    private double Kf;
+    private double kp;
+    private double kd;
+    private double ki;
+    private double kf;
+
+    private double maxPercent = 1;
 
     public SimTalon(ModelSystem modelSystem){
         this.model = modelSystem;
@@ -17,10 +28,53 @@ public class SimTalon implements Runnable {
         this.voltage = Math.min(Math.max(percent * 12,-12), 12);
     }
 
+    public void setVelocity(double velocity){
+        set(PIDFControl(velocity, getVelocity()));
+    }
+
+    public void setPosition(double position){
+        set(PIDFControl(position, getPosition()));
+    }
+
+    private double integral;
+    private double lastError;
+    private double lastMeasured;
+
+    private double PIDFControl(double target, double measured){
+        double voltage = 0;
+
+        double error = target - measured;
+
+        integral = integral + error * .01;
+        double derivative = (error-lastError) / .01;
+
+        voltage = Kp * error + Ki * integral + Kd * derivative + Kf * target;
+
+        voltage = Math.max(-maxPercent, Math.min(maxPercent,voltage));
+
+        lastMeasured = measured;
+        lastError = error;
+
+        return voltage;
+    }
+
     public void setFollower(SimTalon master){
         this.master = master;
         follower = true;
     }
+
+    public void setPIDF(double Kp, double Kd, double Ki, double Kf){
+        kp = Kp;
+        kd = Kd;
+        ki = Ki;
+        kf = Kf;
+    }
+
+    public void setMaxPercent(double maxPercent){
+        this.maxPercent = maxPercent;
+    }
+
+
 
     /**
      * Run method, updates the motor's position with the voltage
@@ -50,7 +104,6 @@ public class SimTalon implements Runnable {
 
     public double getVelocity(){
         return (double)Math.round(model.getVelocity() * Conversions.M_TO_IN*100)/100;
-
     }
 
 
@@ -64,5 +117,37 @@ public class SimTalon implements Runnable {
 
     public double getVoltage() {
         return voltage;
+    }
+
+    public double getKp() {
+        return Kp;
+    }
+
+    public double getKd() {
+        return Kd;
+    }
+
+    public double getKi() {
+        return Ki;
+    }
+
+    public double getKf() {
+        return Kf;
+    }
+
+    public void setKp(double kp) {
+        Kp = kp;
+    }
+
+    public void setKd(double kd) {
+        Kd = kd;
+    }
+
+    public void setKi(double ki) {
+        Ki = ki;
+    }
+
+    public void setKf(double kf) {
+        Kf = kf;
     }
 }

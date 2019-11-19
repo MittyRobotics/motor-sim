@@ -11,7 +11,7 @@ public class SimSampleRobot implements SimRobot {
 	@Override
 	public void robotPeriodic() {
 		arcadeDrive();
-		System.out.println(SimSampleDrivetrain.getInstance().getLeftMasterTalon().getVelocity() + " "  + SimSampleDrivetrain.getInstance().getRightMasterTalon().getVelocity());
+//		System.out.println(SimSampleDrivetrain.getInstance().getLeftMasterTalon().getVelocity() + " "  + SimSampleDrivetrain.getInstance().getRightMasterTalon().getVelocity());
 	}
 
 	private void arcadeDrive(){

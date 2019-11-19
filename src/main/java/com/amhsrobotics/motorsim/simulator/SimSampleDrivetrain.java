@@ -1,6 +1,8 @@
 package com.amhsrobotics.motorsim.simulator;
 
 import com.amhsrobotics.motorsim.motors.CIMMotor;
+import com.amhsrobotics.motorsim.motors.Falcon500Motor;
+import com.amhsrobotics.motorsim.motors.NEOMotor;
 
 public class SimSampleDrivetrain extends SimDrivetrain {
 	private static SimSampleDrivetrain instance = new SimSampleDrivetrain();
