@@ -45,11 +45,12 @@ public class SimTalon implements Runnable {
     }
 
     public double getPosition(){
-        return model.getPosition() * Conversions.M_TO_IN;
+        return (double)Math.round(model.getPosition() * Conversions.M_TO_IN*100)/100;
     }
 
     public double getVelocity(){
-        return model.getVelocity() * Conversions.M_TO_IN;
+        return (double)Math.round(model.getVelocity() * Conversions.M_TO_IN*100)/100;
+
     }
 
 

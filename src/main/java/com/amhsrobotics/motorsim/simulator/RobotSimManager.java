@@ -30,9 +30,9 @@ public class RobotSimManager implements Runnable{
 	}
 	
 	public void setupRobotSimManager(SimRobot robot, SimDrivetrain drivetrain, double robotMass, double driveGearRatio, double driveWheelRadius, double robotWidth, double robotLength, double periodTime){
+		setupDrivetrainProperties(robotMass,driveGearRatio,driveWheelRadius,robotWidth,robotLength);
 		setupRobot(robot,drivetrain);
 		setPeriodTime(periodTime);
-		setupDrivetrainProperties(mass,driveGearRatio,driveWheelRadius,robotWidth,robotLength);
 		initHardware();
 		init();
 	}
@@ -84,7 +84,6 @@ public class RobotSimManager implements Runnable{
 		drivetrain.odometry();
 		SwingUtilities.invokeLater(() -> {
 			RobotGraph.getInstance().graphRobot(drivetrain.getRobotX(), drivetrain.getRobotY(), drivetrain.getHeading(),robotWidth,robotLength);
-			System.out.println(drivetrain.getRobotX() + " " + drivetrain.getRobotY() + " " + drivetrain.getHeading());
 		});
 	}
 	

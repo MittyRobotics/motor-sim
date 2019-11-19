@@ -22,10 +22,10 @@ public abstract class SimDrivetrain {
         double deltaLeftPos = getLeftMasterTalon().getPosition() - prevLeftPos;
         double deltaRightPos = getRightMasterTalon().getPosition() - prevRightPos;
 
-        System.out.println(getLeftMasterTalon().getPosition());
         
         double deltaPos = (deltaLeftPos + deltaRightPos) / 2;
         heading += Math.toDegrees(Math.atan2((deltaLeftPos - deltaRightPos), RobotSimManager.getInstance().getRobotWidth()));
+
 
         y += Math.cos(Math.toRadians(heading)) * deltaPos;
         x += Math.sin(Math.toRadians(heading)) * deltaPos;
