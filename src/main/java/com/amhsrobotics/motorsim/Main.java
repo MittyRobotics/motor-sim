@@ -27,7 +27,7 @@ public class Main {
 		controlLoop.setupVelocityController(1, 0, 0);
 		ControlType controlType = ControlType.VELOCITY;
 		
-		MotorSimulator motorSimulator = new MotorSimulator(new CIMMotor(), 4, mass, gearRatio, wheelRadius, controlLoop, controlType, "CIM motor");
+		MotorSimulator motorSimulator = new MotorSimulator(new CIMMotor(), 2, mass, gearRatio, wheelRadius, controlLoop, controlType, "CIM motor");
 		Graph graph = new Graph("CIM Motor");
 		
 		double setpoint = 10  * Conversions.IN_TO_M;
