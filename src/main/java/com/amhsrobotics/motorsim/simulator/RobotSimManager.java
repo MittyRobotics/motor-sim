@@ -17,6 +17,8 @@ public class RobotSimManager implements Runnable{
 	
 	private SimRobot robot;
 	private SimDrivetrain drivetrain;
+
+	private boolean calledInit = false;
 	
 	private static RobotSimManager instance = new RobotSimManager();
 	
@@ -30,6 +32,7 @@ public class RobotSimManager implements Runnable{
 	}
 	
 	public void setupRobotSimManager(SimRobot robot, SimDrivetrain drivetrain, double robotMass, double driveGearRatio, double driveWheelRadius, double robotWidth, double robotLength, double periodTime){
+		calledInit = false;
 		setupDrivetrainProperties(robotMass,driveGearRatio,driveWheelRadius,robotWidth,robotLength);
 		setupRobot(robot,drivetrain);
 		setPeriodTime(periodTime);
@@ -58,6 +61,8 @@ public class RobotSimManager implements Runnable{
 	@Override
 	public void run() {
 		while(true){
+			while(!calledInit) {
+			}
 			periodic();
 			try {
 				Thread.sleep((long) (periodTime * 1000));
@@ -74,6 +79,7 @@ public class RobotSimManager implements Runnable{
 	
 	private void init(){
 		robot.robotInit();
+		calledInit = true;
 	}
 	
 	/**
