@@ -1,17 +1,15 @@
 package com.amhsrobotics.motorsim.simulator;
 
 import com.amhsrobotics.motorsim.math.Conversions;
-import com.amhsrobotics.motorsim.motors.CIMMotor;
-import com.amhsrobotics.motorsim.motors.Motor;
 
 public class SimTalon implements Runnable {
-    private SystemModel model;
-    private double voltage;
+    private ModelSystem model;
+    private double voltage=0;
     private SimTalon master;
     boolean follower = false;
 
-    public SimTalon(SystemModel systemModel){
-        this.model = systemModel;
+    public SimTalon(ModelSystem modelSystem){
+        this.model = modelSystem;
     }
 
 
@@ -55,11 +53,11 @@ public class SimTalon implements Runnable {
     }
 
 
-    public SystemModel getModel() {
+    public ModelSystem getModel() {
         return model;
     }
 
-    public void setModel(SystemModel model) {
+    public void setModel(ModelSystem model) {
         this.model = model;
     }
 

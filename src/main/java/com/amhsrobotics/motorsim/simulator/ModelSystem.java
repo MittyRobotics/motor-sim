@@ -4,7 +4,7 @@ import com.amhsrobotics.motorsim.motors.Motor;
 
 import java.util.stream.StreamSupport;
 
-public class SystemModel {
+public class ModelSystem {
     private final Motor motor;
     private double mass;
     private double gearRatio;
@@ -19,7 +19,7 @@ public class SystemModel {
     private double position;
     private double voltage;
 
-    public SystemModel(Motor motor){
+    public ModelSystem(Motor motor){
         this.motor = motor;
     }
 
