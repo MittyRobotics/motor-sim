@@ -12,10 +12,6 @@ public class SimTalon implements Runnable {
     private double Kd;
     private double Ki;
     private double Kf;
-    private double kp;
-    private double kd;
-    private double ki;
-    private double kf;
 
     private double maxPercent = 1;
 
@@ -64,10 +60,10 @@ public class SimTalon implements Runnable {
     }
 
     public void setPIDF(double Kp, double Kd, double Ki, double Kf){
-        kp = Kp;
-        kd = Kd;
-        ki = Ki;
-        kf = Kf;
+        Kp = Kp;
+        Kd = Kd;
+        Ki = Ki;
+        Kf = Kf;
     }
 
     public void setMaxPercent(double maxPercent){
