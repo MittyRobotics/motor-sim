@@ -75,17 +75,15 @@ public class RobotGraph extends JFrame{
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
-        resizeGraph();
+        resizeGraph(-100,100,-100,100);
     }
 
-    public void resizeGraph(){
-        double lowerRange = -75;
-        double upperRange = 75;
+    public void resizeGraph(double lowerBound, double upperBound, double leftBound, double rightBound){
         NumberAxis domain = (NumberAxis) plot.getDomainAxis();
-        domain.setRange(lowerRange-20, upperRange+20);
+        domain.setRange(leftBound, rightBound);
         domain.setVerticalTickLabels(true);
         NumberAxis range = (NumberAxis) plot.getRangeAxis();
-        range.setRange(lowerRange-20, upperRange+20);
+        range.setRange(lowerBound, upperBound);
     }
 
     public void graphRobot(double x, double y, double heading, double width, double length) {
