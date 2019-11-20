@@ -60,10 +60,10 @@ public class SimTalon implements Runnable {
     }
 
     public void setPIDF(double Kp, double Kd, double Ki, double Kf){
-        Kp = Kp;
-        Kd = Kd;
-        Ki = Ki;
-        Kf = Kf;
+        this.Kp = Kp;
+        this.Kd = Kd;
+        this.Ki = Ki;
+        this.Kf = Kf;
     }
 
     public void setMaxPercent(double maxPercent){
